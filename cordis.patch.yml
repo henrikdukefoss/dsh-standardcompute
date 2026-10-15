@@ -1,0 +1,46 @@
+# Standard Compute provider for DeepSeek Harness.
+#
+# This bundle configures the pi-ai adapter row that dsh-base already mounts
+# (dormant, with no routes) instead of inserting a second adapter. It adds one
+# route, `standardcompute`, that speaks OpenAI Chat Completions to
+# https://api.stdcmpt.com/v1. The API key is a credential reference: store it
+# on Settings -> Models, or export STANDARDCOMPUTE_API_KEY. No secret is
+# written to this file.
+#
+# A Cordis patch replaces the row's whole `config`, so a profile that already
+# configures `llm-pi-ai` in its own cordis.patch.yml takes precedence over this
+# layer. See the README section "Already have other providers?".
+- id: llm-pi-ai
+  config:
+    providers:
+      standardcompute:
+        displayName: Standard Compute
+        apiKeyEnv: STANDARDCOMPUTE_API_KEY
+        api: openai-completions
+        baseURL: https://api.stdcmpt.com/v1
+        compat:
+          supportsDeveloperRole: false
+          maxTokensField: max_tokens
+        retryPolicy:
+          mode: normal
+          maxRetries: 3
+        models:
+          # The router: picks a model and provider per request.
+          - id: standardcompute
+            name: Standard Compute (router)
+            contextWindow: 1000000
+            input:
+              - text
+              - image
+          # Direct pins, for when you want one specific model every time.
+          - id: deepseek/deepseek-v4-pro
+            name: DeepSeek V4 Pro
+            contextWindow: 1048576
+            input:
+              - text
+          - id: anthropic/claude-sonnet-5.5
+            name: Claude Sonnet 5.5
+            contextWindow: 1000000
+            input:
+              - text
+              - image
