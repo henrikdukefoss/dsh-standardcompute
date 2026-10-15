@@ -64,6 +64,10 @@ Check what the bundle added without starting anything:
 dsh --profile web --dump-config   # shows "# == @deepseek-ai/dsh-base, patched by dsh-standardcompute"
 ```
 
+[![Add to Magpie](https://usemagpie.ai/img/add-to-magpie.svg)](https://usemagpie.ai/import#name=Standard+Compute&id=standardcompute&chat=https%3A%2F%2Fapi.stdcmpt.com%2Fv1&anthropic=https%3A%2F%2Fapi.stdcmpt.com&website=https%3A%2F%2Fstandardcompute.com&keys=https%3A%2F%2Fstandardcompute.com%2Fdashboard%2Fapi-keys&icon=https%3A%2F%2Fstandardcompute.com%2Fapple-icon.png)
+
+Using Magpie? One click adds Standard Compute as a provider (you paste your key in Magpie). Guide: https://standardcompute.com/integrations/magpie
+
 ## How the router works
 
 You send `model: "standardcompute"`. The gateway looks at the request and picks a model and an
